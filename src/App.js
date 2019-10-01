@@ -1,64 +1,147 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
-import Person from "./Person/Person";
+import Person from './Person/Person';
+import Radium,  {StyleRoot} from 'radium';
+import Paragraph from './Person/paragraph';
+
 
 class App extends Component {
-
   state = {
-    persons : [
-      {name:"RAMU KAK" ,age:23},
-      {name:"RAMU KAKI" ,age:23},
-      {name:"RAMU KANJU" ,age:23}
-    ]
+    persons: [
+      { id:"ddsd1",name: 'Max', age: 28 },
+      { id:"2323232",name: 'Manu', age: 29 },
+      { id : "323232s",name: 'Stephanie', age: 26 }
+    ],
+    otherState: 'some other value',
+    showPersons: false,
+    length: 0
   }
 
-  switchNameHandler = (Name)=>{
-    this.setState({
-      persons : [
-        {name:"RAMU KAK23" ,age:23},
-        {name:Name ,age:29},
-        {name:"RAMU KANJU239823" ,age:20}
+  switchNameHandler = ( newName ) => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    this.setState( {
+      persons: [
+        { name: newName, age: 28 },
+        { name: 'Manu', age: 29 },
+        { name: 'Stephanie', age: 27 }
       ]
-    })
-  }
-  NameChaneHandler = (event)=>{
-    this.setState({
-      persons : [
-        {name:"RAMU KAK23" ,age:23},
-        {name:event.target.value ,age:29},
-        {name:"RAMU KANJU239823" ,age:20}
-      ]
-    })
+    } )
   }
 
-  resetStateHandler = ()=>{
-    this.setState({
-      persons : [
-        {name:"RAMU KAK" ,age:23},
-        {name:"RAMU KAKI" ,age:23},
-        {name:"RAMU KANJU" ,age:23}
-      ]
+  nameChangedHandler = ( event,id ) => {
+    const persons = [...this.state.persons];
+    persons.forEach((person,index)=>{
+      if(person.id === id){
+        person.name=event.target.value;
+        persons[index] = person;
+        return false;
+      }
     })
+    this.setState({persons:persons});
+  }
+  deletePersonHandler = (personIndex)=>{
+    const persons = [...this.state.persons] ;
+    persons.splice(personIndex,1);
+    this.setState({persons:persons});
   }
 
-  render() {
-    return (
-      <div className="App" id="123">
-        <header className="App-header">
-          <h1>I am react begineer</h1>
-        </header>
-        <div> 
-        {/* <input type="radio" onClick={this.switchNameHandler}></input>
-        <input type="radio"onClick={this.resetStateHandler}></input> */}
+  togglePersonHandler = () =>{
+    this.setState({showPersons: !this.state.showPersons})
+  }
+
+  paragraphLengthCalculate = (event) =>{
+    this.setState({length:event.target.value.length})
+  }
+  
+  render () {
+    const style = {
+      backgroundColor: 'green',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+      ":hover":{
+        backgroundColor: 'yellow',
+        color: 'black'
+      }
+    };
+
+    let persons = null;
+   
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          {
+             this.state.persons.map((person,index)=>{
+              return <Person 
+              click = {()=>this.deletePersonHandler(index)}
+              name={person.name} 
+              age = {person.age} 
+              key = {person.id}
+              changed = {(event)=>{this.nameChangedHandler(event,person.id)}}
+              />
+            })
+          }
         </div>
-        <button onClick={()=>this.switchNameHandler("RAJAT BOSS")}>submit</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>THIS IS GOOD</Person>
-        <Person name ={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this,"rohanSIR")} changed={this.NameChaneHandler}>THIS IS BAD</Person>
-        <Person name ={this.state.persons[2].name} age={this.state.persons[2].age}>THIS IS BAD</Person>
+      )
+      style.backgroundColor='red';
+      style[':hover'] = {
+        backgroundColor:'pink',
+        color:'black' 
+      }
+      // persons = (
+      //   <div>
+      //     <Person
+      //       name={this.state.persons[0].name}
+      //       age={this.state.persons[0].age} />
+      //     <Person
+      //       name={this.state.persons[1].name}
+      //       age={this.state.persons[1].age}
+      //       click={this.switchNameHandler.bind( this, 'Max!' )}
+      //       changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
+      //     <Person
+      //       name={this.state.persons[2].name}
+      //       age={this.state.persons[2].age} />
+      //   </div>
+      // );
+    }
+    let className = [];
+    if(this.state.persons.length===1){
+      className.push('red');
+    }
+    else if(this.state.persons.length==2){
+      className.push('bold');
+    }
+    else if(this.state.persons.length===0){
+      className.length=0;
+      className.push('blue');
+    }
+
+    let paragraphTest = (
+      <div>
+        <Paragraph
+        length = {this.state.length}
+        changed = {(event)=>{this.paragraphLengthCalculate(event)}} 
+        />
       </div>
+    )
+
+    return (
+      <StyleRoot>
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p className={className.join(" ")}>This is really working!</p>
+        <button
+          style={style}
+          onClick={this.togglePersonHandler}>Toggle Persons</button>
+        {persons}
+        {paragraphTest}
+      </div>
+      </StyleRoot>
     );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default App;
+export default Radium(App);

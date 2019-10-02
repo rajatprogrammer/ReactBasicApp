@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium,  {StyleRoot} from 'radium';
 import Paragraph from './Person/paragraph';
 
 
@@ -61,10 +60,6 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      ":hover":{
-        backgroundColor: 'yellow',
-        color: 'black'
-      }
     };
 
     let persons = null;
@@ -86,10 +81,6 @@ class App extends Component {
         </div>
       )
       style.backgroundColor='red';
-      style[':hover'] = {
-        backgroundColor:'pink',
-        color:'black' 
-      }
       // persons = (
       //   <div>
       //     <Person
@@ -128,7 +119,6 @@ class App extends Component {
     )
 
     return (
-      <StyleRoot>
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p className={className.join(" ")}>This is really working!</p>
@@ -138,10 +128,9 @@ class App extends Component {
         {persons}
         {paragraphTest}
       </div>
-      </StyleRoot>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default Radium(App);
+export default App;

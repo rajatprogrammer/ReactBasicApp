@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from'./App.css';
 import Person from './Person/Person';
 import Paragraph from './Person/paragraph';
 
@@ -99,14 +99,14 @@ class App extends Component {
     }
     let className = [];
     if(this.state.persons.length===1){
-      className.push('red');
+      className.push(classes.red);
     }
     else if(this.state.persons.length==2){
-      className.push('bold');
+      className.push(classes.bold);
     }
     else if(this.state.persons.length===0){
       className.length=0;
-      className.push('blue');
+      className.push(classes.blue);
     }
 
     let paragraphTest = (
@@ -119,7 +119,7 @@ class App extends Component {
     )
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I'm a React App</h1>
         <p className={className.join(" ")}>This is really working!</p>
         <button

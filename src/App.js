@@ -63,6 +63,7 @@ class App extends Component {
     };
 
     let persons = null;
+    let btnClass = '';
    
     if ( this.state.showPersons ) {
       persons = (
@@ -80,7 +81,7 @@ class App extends Component {
           }
         </div>
       )
-      style.backgroundColor='red';
+      btnClass = classes.Red
       // persons = (
       //   <div>
       //     <Person
@@ -101,7 +102,7 @@ class App extends Component {
     if(this.state.persons.length===1){
       className.push(classes.red);
     }
-    else if(this.state.persons.length==2){
+    else if(this.state.persons.length===2){
       className.push(classes.bold);
     }
     else if(this.state.persons.length===0){
@@ -123,7 +124,7 @@ class App extends Component {
         <h1>Hi, I'm a React App</h1>
         <p className={className.join(" ")}>This is really working!</p>
         <button
-          style={style}
+          className = {btnClass}
           onClick={this.togglePersonHandler}>Toggle Persons</button>
         {persons}
         {paragraphTest}

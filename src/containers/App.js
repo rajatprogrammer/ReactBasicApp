@@ -6,6 +6,10 @@ import Paragraph from '../components/persons/Person/paragraph';
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
   state = {
     persons: [
       { id: "ddsd1", name: 'Max', age: 28 },
@@ -15,6 +19,17 @@ class App extends Component {
     otherState: 'some other value',
     showPersons: false,
     length: 0
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[get getDerivedStateFromProps]', props);
+    return state
+  }
+  // componentWillMount() {
+  //   console.log('[APP.js] component will mount')
+  // }
+  componentDidMount() {
+    console.log('[APP.js] component did mount')
   }
 
   switchNameHandler = (newName) => {
@@ -55,6 +70,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("[App.js] render methord")
 
     let persons = null;
 
@@ -84,6 +100,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Cockpit
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           clicked={this.togglePersonHandler}
           persons={this.state.persons}

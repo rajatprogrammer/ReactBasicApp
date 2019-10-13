@@ -18,6 +18,9 @@ class Persons extends Component {
     componentDidUpdate(prevProps, prevsState, snapshot) {
         console.log("[componentDidUpdate] lifecycle from person.js" + JSON.stringify(snapshot));
     }
+    componentWillUnmount() {
+        console.log("[componentWillUnmount] lifecycle from person.js");
+    }
     render() {
         console.log("[Persons.js rendring]")
         return (

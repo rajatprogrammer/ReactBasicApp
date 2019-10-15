@@ -9,7 +9,11 @@ class Persons extends Component {
     }
     shouldComponentUpdate(nextprops, nextState) {
         console.log("[shouldComponentUpdate] lifecycle from person.js");
-        return true;
+        if (nextprops.persons !== this.props.persons) {
+            return true
+        } else {
+            return false;
+        }
     }
     getSnapshotBeforeUpdate(prevProps, prevsState) {
         console.log("[getSnapshotBeforeUpdate] lifecycle from person.js" + JSON.stringify(prevProps) + " " + JSON.stringify(prevsState));

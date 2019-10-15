@@ -18,7 +18,8 @@ class App extends Component {
     ],
     otherState: 'some other value',
     showPersons: false,
-    length: 0
+    length: 0,
+    showCockpit: true
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -73,6 +74,7 @@ class App extends Component {
     console.log("[App.js] render methord")
 
     let persons = null;
+    let CockpitMeth = null;
 
     if (this.state.showPersons) {
       persons = (
@@ -88,6 +90,17 @@ class App extends Component {
       )
     }
 
+    if (this.state.showCockpit) {
+      CockpitMeth = (
+        <Cockpit
+          title={this.props.appTitle}
+          showPersons={this.state.showPersons}
+          clicked={this.togglePersonHandler}
+          personslength={this.state.persons.length}
+        />
+      )
+    }
+
     let paragraphTest = (
       <div>
         <Paragraph
@@ -99,12 +112,12 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-        <Cockpit
-          title={this.props.appTitle}
-          showPersons={this.state.showPersons}
-          clicked={this.togglePersonHandler}
-          persons={this.state.persons}
-        />
+        <button onClick={() => {
+          this.setState({
+            showCockpit: false
+          })
+        }}>Remove Cockpit</button>
+        {CockpitMeth}
         {persons}
         {paragraphTest}
       </div>

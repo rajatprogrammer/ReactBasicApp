@@ -32,13 +32,13 @@ const cockpit = (props) => {
         btnClass = classes.Red
     }
     let className = [];
-    if (props.persons.length === 1) {
+    if (props.personslength === 1) {
         className.push(classes.red);
     }
-    else if (props.persons.length === 2) {
+    else if (props.personslength === 2) {
         className.push(classes.bold);
     }
-    else if (props.persons.length === 0) {
+    else if (props.personslength === 0) {
         className.length = 0;
         className.push(classes.blue);
     }
@@ -53,4 +53,4 @@ const cockpit = (props) => {
         </div>
     );
 }
-export default cockpit;
+export default React.memo(cockpit);

@@ -3,6 +3,7 @@ import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit'
 import PersonsArray from '../components/persons/person';
 import Paragraph from '../components/persons/Person/paragraph';
+import WithClass from '../Hoc/WithClassName';
 
 
 class App extends Component {
@@ -111,7 +112,7 @@ class App extends Component {
     )
 
     return (
-      <div className={classes.App}>
+      <WithClass className={classes.App}>
         <button onClick={() => {
           this.setState({
             showCockpit: false
@@ -120,7 +121,7 @@ class App extends Component {
         {CockpitMeth}
         {persons}
         {paragraphTest}
-      </div>
+      </WithClass>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }

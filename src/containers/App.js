@@ -4,6 +4,7 @@ import Cockpit from '../components/Cockpit/Cockpit'
 import PersonsArray from '../components/persons/person';
 import Paragraph from '../components/persons/Person/paragraph';
 import withClass from '../Hoc/WithClassName';
+import AuthContext from '../context/auth-context';
 import Aux from '../Hoc/Auxiliary';
 
 
@@ -111,7 +112,6 @@ class App extends Component {
           showPersons={this.state.showPersons}
           clicked={this.togglePersonHandler}
           personslength={this.state.persons.length}
-          login={this.loginHandler}
         />
       )
     }
@@ -132,8 +132,15 @@ class App extends Component {
             showCockpit: false
           })
         }}>Remove Cockpit</button>
-        {CockpitMeth}
-        {persons}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {CockpitMeth}
+          {persons}
+        </AuthContext.Provider>
         {paragraphTest}
       </Aux>
     );

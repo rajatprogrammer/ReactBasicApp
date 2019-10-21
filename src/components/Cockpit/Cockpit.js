@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 const cockpit = (props) => {
+    const toggelBtnRef = useRef(null);
     // useEffect(() => {
     //     console.log("cockpit useEffect");
     //     setTimeout(() => {
@@ -13,11 +14,13 @@ const cockpit = (props) => {
 
     useEffect(() => {
         console.log("cockpit useEffect");
-        setTimeout(() => {
-            alert("data is saved to cloud !");
-        }, 1000);
+        // setTimeout(() => {
+        //     alert("data is saved to cloud !");
+        // }, 1000);
+        toggelBtnRef.current.click();
         return () => {
             console.log("cockpit.js component is removed");
+
         }
     }, []);
     useEffect(() => {
@@ -48,8 +51,11 @@ const cockpit = (props) => {
             <h1>{props.title}</h1>
             <p className={className.join(" ")}>This is really working!</p>
             <button
+                ref={toggelBtnRef}
                 className={btnClass}
-                onClick={props.clicked}>Toggle Persons</button>
+                onClick={props.clicked}>Toggle Persons
+            </button>
+            <button onClick={props.login}>Log In</button>
         </div>
     );
 }

@@ -19,6 +19,7 @@ class Person extends Component {
     render() {
         return (
             <Aux >
+                {this.props.isAuth ? <p>user is Authenticated</p> : <p>Please log In</p>}
                 <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input type="text"
